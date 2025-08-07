@@ -24,58 +24,56 @@ import com.gestion.stock.tbs.backend.repository.IphoneRepository;
 @RestController
 @RequestMapping("/api")
 public class IphoneController {
-	
+
 	@Autowired
 	private IphoneRepository iphoneRepository;
-	
+
 	@GetMapping("/iphones")
-	public List<Iphone> listarIphones(){
+	public List<Iphone> listarIphones() {
 		return iphoneRepository.findAll();
 	}
-	
+
 	@PostMapping("/iphones")
-	public Iphone guardarIphone(@RequestBody Iphone iphone){
+	public Iphone guardarIphone(@RequestBody Iphone iphone) {
 		return iphoneRepository.save(iphone);
 	}
-	
-	 /*@GetMapping("/iphones/{modelo}")
-	    public List<Iphone> buscarIphonePorModelo(@PathVariable String modelo) {
-	        return iphoneRepository.findByModelo(modelo);
-	    }*/
-	 
-	 @GetMapping("/iphones/{id}")
-	    public Optional<Iphone> buscarIphonePorId(@PathVariable Long id) {
-	        return iphoneRepository.findById(id);
-	    }
-	 
-	 @PutMapping("/iphones/{id}")
-	    public ResponseEntity<Iphone> actualizarIphone(@PathVariable Long id, @RequestBody Iphone iphoneRequest) {
-	       Iphone iphone = iphoneRepository.findById(id)
-	    		   .orElseThrow(() -> new ResourceNotFoundException("El equipo seleccionado no se puede actualizar porque no existe"));
-	       iphone.setImei(iphone.getImei());
-	       iphone.setModelo(iphone.getModelo());
-	       iphone.setColor(iphone.getColor());
-	       iphone.setCapacidad(iphone.getCapacidad());
-	       iphone.setBateria(iphone.getBateria());
-	       iphone.setPrecio(iphone.getPrecio());
-	       iphone.setDetalles(iphone.getDetalles());
-	       iphone.setEstado(iphone.getEstado());
-	       
-	       
-	       Iphone iphoneActualizado = iphoneRepository.save(iphone);
-	       return ResponseEntity.ok(iphoneActualizado);
-	 }
-	 
-	 @DeleteMapping("iphones/eliminar/{id}")
-	 public ResponseEntity<Map<String, Boolean>> eliminarIphone(@PathVariable Long id){
-		 Iphone iphone = iphoneRepository.findById(id)
-	    		   .orElseThrow(() -> new ResourceNotFoundException("El equipo seleccionado no existe"));
-		 
-		 iphoneRepository.delete(iphone);
-		 Map<String,Boolean> respuesta = new HashMap<>();
-		 respuesta.put("eliminado", Boolean.TRUE);
-		 return ResponseEntity.ok(respuesta);
-	 }
-	 
-	 
-}//cierra IphoneController
+
+	/*
+	 * @GetMapping("/iphones/{modelo}") public List<Iphone>
+	 * buscarIphonePorModelo(@PathVariable String modelo) { return
+	 * iphoneRepository.findByModelo(modelo); }
+	 */
+
+	@GetMapping("/iphones/{id}")
+	public Optional<Iphone> buscarIphonePorId(@PathVariable Long id) {
+		return iphoneRepository.findById(id);
+	}
+
+	@PutMapping("/iphones/{id}")
+	public ResponseEntity<Iphone> actualizarIphone(@PathVariable Long id, @RequestBody Iphone iphoneRequest) {
+		Iphone iphone = iphoneRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException("El equipo seleccionado no se puede actualizar porque no existe"));
+
+		iphone.setImei(iphoneRequest.getImei());
+		iphone.setModelo(iphoneRequest.getModelo());
+		iphone.setColor(iphoneRequest.getColor());
+		iphone.setCapacidad(iphoneRequest.getCapacidad());
+		iphone.setBateria(iphoneRequest.getBateria());
+		iphone.setPrecio(iphoneRequest.getPrecio());
+		iphone.setDetalles(iphoneRequest.getDetalles());
+		iphone.setEstado(iphoneRequest.getEstado());
+
+		Iphone iphoneActualizado = iphoneRepository.save(iphone);
+		return ResponseEntity.ok(iphoneActualizado);
+	}
+
+	@DeleteMapping("/iphones/{id}")
+	public ResponseEntity<Void> eliminarIphone(@PathVariable Long id) {
+	    Iphone iphone = iphoneRepository.findById(id)
+	        .orElseThrow(() -> new ResourceNotFoundException("No se encontró el iPhone con id: " + id));
+	    
+	    iphoneRepository.delete(iphone);
+	    return ResponseEntity.noContent().build();
+	}
+
+}// cierra IphoneController

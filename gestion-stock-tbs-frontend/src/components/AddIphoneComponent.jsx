@@ -18,7 +18,7 @@ export const AddIphoneComponent = () => {
 
     const saveOrUpdateIphone = (e) => {
         e.preventDefault();
-        const iphone = { modelo, color, capacidad, bateria, precio, imei, detalles, estado };
+        const iphone = { id, modelo, color, capacidad, bateria, precio, imei, detalles, estado };
 
         if (id) {
             IphoneService.updateIphone(id,iphone).then((response) => {
@@ -28,7 +28,7 @@ export const AddIphoneComponent = () => {
                 console.log(error);
             })
         }else{
-             IphoneService.createIphone(id,iphone).then((response) => {
+             IphoneService.createIphone(iphone).then((response) => {
                 console.log(response.data);
                 navigate('/iphones');
             }).catch(error => {
@@ -38,6 +38,7 @@ export const AddIphoneComponent = () => {
     }
 
     useEffect(() => {
+    if (id) {
         IphoneService.getIphoneById(id).then((response) => {
             setModelo(response.data.modelo);
             setColor(response.data.color);
@@ -50,7 +51,8 @@ export const AddIphoneComponent = () => {
         }).catch(error => {
             console.log(error);
         });
-    },[])
+    }
+}, [id])
 
 
     const title = () => {

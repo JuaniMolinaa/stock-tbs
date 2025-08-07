@@ -18,9 +18,9 @@ function App() {
         <div className='container'>
           <Routes>
             <Route exact path='/' element={<ListIphonesComponent />}></Route>
-            <Route exact path='/iphones' element={<ListIphonesComponent />}></Route>
-            <Route exact path='/add-iphone' element={<AddIphoneComponent />}></Route>
-            <Route exact path='/edit-iphone/:id' element={<AddIphoneComponent />}></Route>
+            <Route path='/iphones' element={<ListIphonesComponent />}></Route>
+            <Route path='/add-iphone' element={<AddIphoneComponent />}></Route>
+            <Route path='/edit-iphone/:id' element={<AddIphoneComponent />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
