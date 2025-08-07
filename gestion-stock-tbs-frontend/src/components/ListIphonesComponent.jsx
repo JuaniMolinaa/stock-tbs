@@ -7,16 +7,25 @@ export const ListIphonesComponent = () => {
     const [iphones, setIphones] = useState([]);
 
     useEffect(() => {
-      listarIphones()
+        listarIphones()
     }, [])
 
     const deleteIphone = (iphoneId) => {
-        IphoneService.deleteIphone(iphoneId).then((responde) => {
+    // Usamos window.confirm() para pedir confirmación al usuario
+    const confirmDelete = window.confirm("Seguro que quieres borrar este iPhone?");
+
+    // Si el usuario hace clic en "Aceptar" (confirmDelete es true)
+    if (confirmDelete) {
+        IphoneService.deleteIphone(iphoneId).then((response) => {
             listarIphones();
+            alert("El iPhone ha sido borrado exitosamente.");
         }).catch(error => {
             console.log(error);
-        })
+            alert("Hubo un error al intentar borrar el iPhone.");
+        });
     }
+    // Si el usuario hace clic en "Cancelar", la función simplemente termina y no pasa nada.
+}
 
     const listarIphones = () => {
         IphoneService.getAllIphones().then(response => {
@@ -36,11 +45,13 @@ export const ListIphonesComponent = () => {
                     <th>MODELO</th>
                     <th>COLOR</th>
                     <th>GB</th>
+                    <th>CONDICION</th>
                     <th>%BATERIA</th>
                     <th>PRECIO</th>
                     <th>IMEI</th>
-                    <th>DETALLES</th>
                     <th>ESTADO</th>
+                    <th>DETALLES</th>
+                    <th>FECHA y HORA</th>
                     <th>ACCIONES</th>
                 </thead>
                 <tbody>
@@ -51,14 +62,16 @@ export const ListIphonesComponent = () => {
                                     <td>{iphone.modelo}</td>
                                     <td>{iphone.color}</td>
                                     <td>{iphone.capacidad}</td>
+                                    <td>{iphone.condicion}</td>
                                     <td>{iphone.bateria}</td>
-                                    <td>{iphone.precio}</td>
+                                    <td>${iphone.precio} USD</td>
                                     <td>{iphone.imei}</td>
-                                    <td>{iphone.detalles}</td>
                                     <td>{iphone.estado}</td>
+                                    <td>({iphone.detalles})</td>
+                                    <td>{iphone.fecha} {iphone.hora}</td>
                                     <td>
                                         <Link className='btn btn-info' to={`/edit-iphone/${(iphone.id)}`}>Editar</Link>
-                                        <button style={{ marginLeft: "10px" }} className='btn btn-danger' onClick={() => deleteIphone(iphone.id)}>Borrar</button>
+                                        <button style={{ marginLeft: "5px" }} className='btn btn-danger' onClick={() => deleteIphone(iphone.id)}>Borrar</button>
                                     </td>
                                 </tr>
                         )

@@ -1,10 +1,9 @@
 package com.gestion.stock.tbs.backend.controller;
 
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,14 +34,10 @@ public class IphoneController {
 
 	@PostMapping("/iphones")
 	public Iphone guardarIphone(@RequestBody Iphone iphone) {
+		iphone.setFecha(LocalDate.now());
+	    iphone.setHora(LocalTime.now());
 		return iphoneRepository.save(iphone);
 	}
-
-	/*
-	 * @GetMapping("/iphones/{modelo}") public List<Iphone>
-	 * buscarIphonePorModelo(@PathVariable String modelo) { return
-	 * iphoneRepository.findByModelo(modelo); }
-	 */
 
 	@GetMapping("/iphones/{id}")
 	public Optional<Iphone> buscarIphonePorId(@PathVariable Long id) {
@@ -58,11 +53,12 @@ public class IphoneController {
 		iphone.setModelo(iphoneRequest.getModelo());
 		iphone.setColor(iphoneRequest.getColor());
 		iphone.setCapacidad(iphoneRequest.getCapacidad());
+		iphone.setCondicion(iphoneRequest.getCondicion());
 		iphone.setBateria(iphoneRequest.getBateria());
 		iphone.setPrecio(iphoneRequest.getPrecio());
 		iphone.setDetalles(iphoneRequest.getDetalles());
 		iphone.setEstado(iphoneRequest.getEstado());
-
+	    
 		Iphone iphoneActualizado = iphoneRepository.save(iphone);
 		return ResponseEntity.ok(iphoneActualizado);
 	}
