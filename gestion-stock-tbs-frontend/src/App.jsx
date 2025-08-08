@@ -15,7 +15,7 @@ function App() {
     <div>
       <BrowserRouter>
         <HeaderComponent />
-        <div className='container'>
+        <div className='container-fluid px-4'>
           <Routes>
             <Route exact path='/' element={<ListIphonesComponent />}></Route>
             <Route path='/iphones' element={<ListIphonesComponent />}></Route>

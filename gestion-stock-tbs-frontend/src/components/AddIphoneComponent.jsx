@@ -184,7 +184,7 @@ export const AddIphoneComponent = () => {
                                 {/* Renderizado condicional del campo de Batería */}
                                 {condicion === 'USADO' && (
                                     <div className='form-group mb-2'>
-                                        <label className='form-label'>Bateria</label>
+                                        <label className='form-label'>Bateria (solo %)</label>
                                         <input
                                             type="text"
                                             placeholder='Ingrese el % de bateria'
@@ -198,7 +198,7 @@ export const AddIphoneComponent = () => {
 
                                 {/* Campo de Precio (se mantiene como input de texto) */}
                                 <div className='form-group mb-2'>
-                                    <label className='form-label'>Precio</label>
+                                    <label className='form-label'>Precio (en $USD)</label>
                                     <input
                                         type="number"
                                         placeholder='Ingrese el precio en USD'
@@ -206,6 +206,7 @@ export const AddIphoneComponent = () => {
                                         className='form-control'
                                         value={precio}
                                         onChange={(e) => setPrecio(e.target.value)}
+                                        onWheel={(e) => e.target.blur()} // Oculta las flechas y previene el cambio con la rueda
                                     />
                                 </div>
 
@@ -219,6 +220,7 @@ export const AddIphoneComponent = () => {
                                         className='form-control'
                                         value={imei}
                                         onChange={(e) => setImei(e.target.value)}
+                                        onWheel={(e) => e.target.blur()} // Oculta las flechas y previene el cambio con la rueda
                                     />
                                 </div>
 

@@ -7,3 +7,24 @@
   text-align: center;
   color: white;
 }
+.table-responsive-font table {
+    font-size: 1rem; /* se puede ajustar este valor, 1rem es el tamaño por defecto */
+}
+
+.table-responsive-font th {
+    font-size: 120%; /* Aumenta el tamaño de la letra para todas las celdas */
+    padding: 0.5rem;
+    font-weight:800;
+     /* Ajusta el padding para reducir el espacio */
+}
+.table-responsive-font td {
+    font-size: 110%; /* Aumenta el tamaño de la letra para todas las celdas */
+    padding: 0.5rem;
+    font-weight:600;
+     /* Ajusta el padding para reducir el espacio */
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

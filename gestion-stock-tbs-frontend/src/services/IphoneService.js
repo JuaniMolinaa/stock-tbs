@@ -3,8 +3,20 @@ import axios from "axios";
 const IPHONE_BASE_REST_API_URL = "http://localhost:8080/api/iphones"
 
 class IphoneService {
-    getAllIphones() {
-        return axios.get(IPHONE_BASE_REST_API_URL);
+    getAllIphones(estado, condicion, searchTerm) {
+        const params = {};
+        if (estado) {
+            params.estado = estado;
+        }
+        if (condicion) {
+            params.condicion = condicion;
+        }
+        if (searchTerm) {
+            params.search  = searchTerm;
+        }
+        return axios.get(IPHONE_BASE_REST_API_URL, {
+            params: params
+        });
     }
 
     createIphone(iphone) {
