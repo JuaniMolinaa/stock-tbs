@@ -119,40 +119,40 @@ export const ListIphonesComponent = () => {
     }
 
     const sortIphoneModels = (a, b) => {
-    const modelA = a.modelo.toLowerCase();
-    const modelB = b.modelo.toLowerCase();
+        const modelA = a.modelo.toLowerCase();
+        const modelB = b.modelo.toLowerCase();
 
-    const numberA = parseInt(modelA.match(/\d+/));
-    const numberB = parseInt(modelB.match(/\d+/));
+        const numberA = parseInt(modelA.match(/\d+/));
+        const numberB = parseInt(modelB.match(/\d+/));
 
-    // 1. Comparar por número de modelo
-    if (numberA !== numberB) {
-        return sortDirection === 'asc' ? numberA - numberB : numberB - numberA;
-    }
+        // 1. Comparar por número de modelo
+        if (numberA !== numberB) {
+            return sortDirection === 'asc' ? numberA - numberB : numberB - numberA;
+        }
 
-    const proA = modelA.includes('pro');
-    const proMaxA = modelA.includes('pro max');
-    const proB = modelB.includes('pro');
-    const proMaxB = modelB.includes('pro max');
+        const proA = modelA.includes('pro');
+        const proMaxA = modelA.includes('pro max');
+        const proB = modelB.includes('pro');
+        const proMaxB = modelB.includes('pro max');
 
-    // 2. Comparar por tipo de modelo (Pro Max, Pro, etc.)
-    if (proMaxA !== proMaxB) {
-        return sortDirection === 'asc' ? (proMaxA ? 1 : -1) : (proMaxA ? -1 : 1);
-    }
-    if (proA !== proB) {
-        return sortDirection === 'asc' ? (proA ? 1 : -1) : (proA ? -1 : 1);
-    }
+        // 2. Comparar por tipo de modelo (Pro Max, Pro, etc.)
+        if (proMaxA !== proMaxB) {
+            return sortDirection === 'asc' ? (proMaxA ? 1 : -1) : (proMaxA ? -1 : 1);
+        }
+        if (proA !== proB) {
+            return sortDirection === 'asc' ? (proA ? 1 : -1) : (proA ? -1 : 1);
+        }
 
-    // 3. Si el modelo es el mismo, comparar por capacidad
-    const capacidadA = parseInt(a.capacidad);
-    const capacidadB = parseInt(b.capacidad);
+        // 3. Si el modelo es el mismo, comparar por capacidad
+        const capacidadA = parseInt(a.capacidad);
+        const capacidadB = parseInt(b.capacidad);
 
-    if (capacidadA !== capacidadB) {
-        return sortDirection === 'asc' ? capacidadA - capacidadB : capacidadB - capacidadA;
-    }
+        if (capacidadA !== capacidadB) {
+            return sortDirection === 'asc' ? capacidadA - capacidadB : capacidadB - capacidadA;
+        }
 
-    return 0; // Si todo es igual, no se cambia el orden
-};
+        return 0; // Si todo es igual, no se cambia el orden
+    };
 
     const toggleSortDirection = () => {
         setSortDirection(prevDirection => (prevDirection === 'asc' ? 'desc' : 'asc'));
@@ -216,7 +216,7 @@ export const ListIphonesComponent = () => {
                 </div>
             </div>
 
-            <div className="mb-2 d-flex justify-content-end gap-2">
+            <div className="mb-2 d-flex justify-content gap-2">
                 <button className="btn btn-secondary btn-sm" onClick={() => setColumnView('admin')}>
                     Vista Admin
                 </button>
@@ -228,64 +228,66 @@ export const ListIphonesComponent = () => {
                 </button>
             </div>
 
-            <table className='table table-bordered table-striped table-responsive-font'>
-                <thead>
-                    <tr>
-                        {visibleColumns.modelo &&
-                            <th>
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <button className="btn btn-sm p-0 m-0 me-1" onClick={toggleSortDirection}>
-                                        {getSortIcon()}
-                                    </button>
-                                    <div className="flex-grow-1 text-center">MODELO</div>
-                                    <div>
-                                        <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('modelo')}>
-                                            x
+            <div className="table-responsive">
+                <table className='table table-bordered table-striped table-responsive-font'>
+                    <thead>
+                        <tr>
+                            {visibleColumns.modelo &&
+                                <th className="text-center">
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <button className="btn btn-sm p-0 m-0 me-1" onClick={toggleSortDirection}>
+                                            {getSortIcon()}
                                         </button>
+                                        <div className="flex-grow-1 text-center">MODELO</div>
+                                        <div>
+                                            <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('modelo')}>
+                                                x
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </th>
+                                </th>
+                            }
+                            {visibleColumns.precio && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">PRECIO</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('precio')}>x</button></div></th>}
+                            {visibleColumns.capacidad && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">GB</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('capacidad')}>x</button></div></th>}
+                            {visibleColumns.color && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">COLOR</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('color')}>x</button></div></th>}
+                            {visibleColumns.bateria && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">%BATERIA</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('bateria')}>x</button></div></th>}
+                            {visibleColumns.condicion && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">CONDICION</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('condicion')}>x</button></div></th>}
+                            {visibleColumns.estado && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">STOCK</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('estado')}>x</button></div></th>}
+                            {visibleColumns.imei && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">IMEI</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('imei')}>x</button></div></th>}
+                            {visibleColumns.detalles && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">DETALLES</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('detalles')}>x</button></div></th>}
+                            {visibleColumns.fecha && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">FECHA</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('fecha')}>x</button></div></th>}
+                            {visibleColumns.acciones && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">ACCIONES</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('acciones')}>x</button></div></th>}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            iphones.map(
+                                iphone =>
+                                    <tr key={iphone.id}>
+                                        {visibleColumns.modelo && <td>{iphone.modelo}</td>}
+                                        {visibleColumns.precio && <td>${iphone.precio}</td>}
+                                        {visibleColumns.capacidad && <td>{iphone.capacidad}</td>}
+                                        {visibleColumns.color && <td>{iphone.color}</td>}
+                                        {visibleColumns.bateria && <td>{iphone.bateria}</td>}
+                                        {visibleColumns.condicion && <td>{iphone.condicion}</td>}
+                                        {visibleColumns.estado && <td>{iphone.estado}</td>}
+                                        {visibleColumns.imei && <td>{iphone.imei}</td>}
+                                        {visibleColumns.detalles && <td>{iphone.detalles}</td>}
+                                        {visibleColumns.fecha && <td>{iphone.fecha}</td>}
+                                        {visibleColumns.acciones &&
+                                            <td>
+                                                <div className="d-flex justify-content-center gap-1">
+                                                    <Link className='btn btn-info btn-sm' to={`/edit-iphone/${(iphone.id)}`}>Editar</Link>
+                                                    <button className='btn btn-danger btn-sm' onClick={() => deleteIphone(iphone.id)}>Borrar</button>
+                                                </div>
+                                            </td>
+                                        }
+                                    </tr>
+                            )
                         }
-                        {visibleColumns.precio && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">PRECIO</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('precio')}>x</button></div></th>}
-                        {visibleColumns.capacidad && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">GB</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('capacidad')}>x</button></div></th>}
-                        {visibleColumns.color && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">COLOR</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('color')}>x</button></div></th>}
-                        {visibleColumns.bateria && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">%BATERIA</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('bateria')}>x</button></div></th>}
-                        {visibleColumns.condicion && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">CONDICION</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('condicion')}>x</button></div></th>}
-                        {visibleColumns.estado && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">ESTADO</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('estado')}>x</button></div></th>}
-                        {visibleColumns.imei && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">IMEI</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('imei')}>x</button></div></th>}
-                        {visibleColumns.detalles && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">DETALLES</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('detalles')}>x</button></div></th>}
-                        {visibleColumns.fecha && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">FECHA</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('fecha')}>x</button></div></th>}
-                        {visibleColumns.acciones && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">ACCIONES</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('acciones')}>x</button></div></th>}
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        iphones.map(
-                            iphone =>
-                                <tr key={iphone.id}>
-                                    {visibleColumns.modelo && <td>{iphone.modelo}</td>}
-                                    {visibleColumns.precio && <td>${iphone.precio} USD</td>}
-                                    {visibleColumns.capacidad && <td>{iphone.capacidad}</td>}
-                                    {visibleColumns.color && <td>{iphone.color}</td>}
-                                    {visibleColumns.bateria && <td>{iphone.bateria}</td>}
-                                    {visibleColumns.condicion && <td>{iphone.condicion}</td>}
-                                    {visibleColumns.estado && <td>{iphone.estado}</td>}
-                                    {visibleColumns.imei && <td>{iphone.imei}</td>}
-                                    {visibleColumns.detalles && <td>{iphone.detalles}</td>}
-                                    {visibleColumns.fecha && <td>{iphone.fecha}</td>}
-                                    {visibleColumns.acciones &&
-                                        <td>
-                                            <div className="d-flex justify-content-center gap-1">
-                                                <Link className='btn btn-info btn-sm' to={`/edit-iphone/${(iphone.id)}`}>Editar</Link>
-                                                <button className='btn btn-danger btn-sm' onClick={() => deleteIphone(iphone.id)}>Borrar</button>
-                                            </div>
-                                        </td>
-                                    }
-                                </tr>
-                        )
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

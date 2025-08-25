@@ -24,6 +24,7 @@ export const AddIphoneComponent = () => {
         if (id) {
             IphoneService.updateIphone(id, iphone).then((response) => {
                 console.log(response.data);
+                alert("El iPhone ha sido actualizado correctamente.");
                 navigate('/iphones');
             }).catch(error => {
                 console.log(error);
@@ -31,6 +32,7 @@ export const AddIphoneComponent = () => {
         } else {
             IphoneService.createIphone(iphone).then((response) => {
                 console.log(response.data);
+                alert("El iPhone ha sido cargado correctamente.");
                 navigate('/iphones');
             }).catch(error => {
                 console.log(error);
@@ -81,7 +83,7 @@ export const AddIphoneComponent = () => {
                                 {/* Fila 1 */}
                                 <div className="row mb-2 fw-bold">
                                     <div className="col-md-6">
-                                        <label className="form-label">Modelo</label>
+                                        <label className="form-label">MODELO</label>
                                         <select className="form-control" value={modelo} onChange={(e) => setModelo(e.target.value)}>
                                             <option value="">Seleccione un modelo</option>
                                             <option value="XS">IPHONE XS</option>
@@ -113,7 +115,7 @@ export const AddIphoneComponent = () => {
                                         </select>
                                     </div>
                                     <div className="col-md-6">
-                                        <label className="form-label">Color</label>
+                                        <label className="form-label">COLOR</label>
                                         <select className="form-control" value={color} onChange={(e) => setColor(e.target.value)}>
                                             <option value="">Seleccione un color</option>
                                             <option value="NEGRO">⚫️ NEGRO</option>
@@ -133,19 +135,19 @@ export const AddIphoneComponent = () => {
                                 {/* Fila 2 */}
                                 <div className="row mb-2 fw-bold">
                                     <div className="col-md-6">
-                                        <label className="form-label">Capacidad</label>
+                                        <label className="form-label">CAPACIDAD</label>
                                         <select className="form-control" value={capacidad} onChange={(e) => setCapacidad(e.target.value)}>
                                             <option value="">Seleccione una capacidad</option>
-                                            <option value="64GB">64GB</option>
-                                            <option value="128GB">128GB</option>
-                                            <option value="256GB">256GB</option>
-                                            <option value="512GB">512GB</option>
-                                            <option value="1TB">1TB</option>
-                                            <option value="2TB">2TB</option>
+                                            <option value="64GB">64 GB</option>
+                                            <option value="128GB">128 GB</option>
+                                            <option value="256GB">256 GB</option>
+                                            <option value="512GB">512 GB</option>
+                                            <option value="1TB">1 TB</option>
+                                            <option value="2TB">2 TB</option>
                                         </select>
                                     </div>
                                     <div className="col-md-6">
-                                        <label className="form-label">Condición</label>
+                                        <label className="form-label">CONDICION</label>
                                         <select className="form-control" value={condicion} onChange={(e) => {
                                             const nuevaCondicion = e.target.value;
                                             setCondicion(nuevaCondicion);
@@ -165,11 +167,11 @@ export const AddIphoneComponent = () => {
                                 {/* Fila 3 */}
                                 <div className="row mb-2 fw-bold">
                                     <div className="col-md-6">
-                                        <label className="form-label">Batería (solo %)</label>
+                                        <label className="form-label">BATERIA (solo %)</label>
                                         <input type="text" className="form-control" value={bateria} onChange={(e) => setBateria(e.target.value)} placeholder="Ingrese el % de batería" />
                                     </div>
                                     <div className="col-md-6">
-                                        <label className="form-label">Precio (en $USD)</label>
+                                        <label className="form-label">PRECIO (en $USD)</label>
                                         <input type="number" className="form-control" value={precio} onChange={(e) => setPrecio(e.target.value)} placeholder="Ingrese el precio en USD" onWheel={(e) => e.target.blur()} />
                                     </div>
                                 </div>
@@ -181,9 +183,9 @@ export const AddIphoneComponent = () => {
                                         <input type="number" className="form-control" value={imei} onChange={(e) => setImei(e.target.value)} placeholder="Ingrese el IMEI" onWheel={(e) => e.target.blur()} />
                                     </div>
                                     <div className="col-md-6">
-                                        <label className="form-label">Estado</label>
+                                        <label className="form-label">DISPONIBILIDAD</label>
                                         <select className="form-control" value={estado} onChange={(e) => setEstado(e.target.value)}>
-                                            <option value="">Seleccione un estado</option>
+                                            <option value="">Seleccione una opción</option>
                                             <option value="DISPONIBLE">DISPONIBLE</option>
                                             <option value="RESERVADO">RESERVADO</option>
                                             <option value="ST">ST</option>
