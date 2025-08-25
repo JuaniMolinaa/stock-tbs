@@ -6,7 +6,7 @@ export const HeaderComponent = () => {
             <header>
                 <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
                     <div>
-                        <a href="/" className='navbar-brand'>Gestion de Stock</a>
+                        <a href="/" className='navbar-brand p-2'>Gestion de Stock</a>
                     </div>
                 </nav>
             </header>

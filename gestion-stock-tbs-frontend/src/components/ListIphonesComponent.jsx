@@ -74,8 +74,10 @@ export const ListIphonesComponent = () => {
     const setColumnView = (viewType) => {
         if (viewType === 'admin') {
             setVisibleColumns(initialColumnVisibility);
+            setFiltroEstado(''); // Establecer a "Todos los Estados"
         } else if (viewType === 'venta') {
             setVisibleColumns(vistaVentaColumns);
+            setFiltroEstado('DISPONIBLE'); // Establecer a "DISPONIBLE"
         }
     };
 
@@ -116,33 +118,41 @@ export const ListIphonesComponent = () => {
             });
     }
 
-    //Ordenar Modelos
     const sortIphoneModels = (a, b) => {
-        const modelA = a.modelo.toLowerCase();
-        const modelB = b.modelo.toLowerCase();
+    const modelA = a.modelo.toLowerCase();
+    const modelB = b.modelo.toLowerCase();
 
-        const numberA = parseInt(modelA.match(/\d+/));
-        const numberB = parseInt(modelB.match(/\d+/));
+    const numberA = parseInt(modelA.match(/\d+/));
+    const numberB = parseInt(modelB.match(/\d+/));
 
-        if (numberA !== numberB) {
-            return sortDirection === 'asc' ? numberA - numberB : numberB - numberA;
-        }
+    // 1. Comparar por número de modelo
+    if (numberA !== numberB) {
+        return sortDirection === 'asc' ? numberA - numberB : numberB - numberA;
+    }
 
-        const proA = modelA.includes('pro');
-        const proMaxA = modelA.includes('pro max');
-        const proB = modelB.includes('pro');
-        const proMaxB = modelB.includes('pro max');
+    const proA = modelA.includes('pro');
+    const proMaxA = modelA.includes('pro max');
+    const proB = modelB.includes('pro');
+    const proMaxB = modelB.includes('pro max');
 
-        if (proMaxA !== proMaxB) {
-            return sortDirection === 'asc' ? (proMaxA ? 1 : -1) : (proMaxA ? -1 : 1);
-        }
+    // 2. Comparar por tipo de modelo (Pro Max, Pro, etc.)
+    if (proMaxA !== proMaxB) {
+        return sortDirection === 'asc' ? (proMaxA ? 1 : -1) : (proMaxA ? -1 : 1);
+    }
+    if (proA !== proB) {
+        return sortDirection === 'asc' ? (proA ? 1 : -1) : (proA ? -1 : 1);
+    }
 
-        if (proA !== proB) {
-            return sortDirection === 'asc' ? (proA ? 1 : -1) : (proA ? -1 : 1);
-        }
+    // 3. Si el modelo es el mismo, comparar por capacidad
+    const capacidadA = parseInt(a.capacidad);
+    const capacidadB = parseInt(b.capacidad);
 
-        return 0;
-    };
+    if (capacidadA !== capacidadB) {
+        return sortDirection === 'asc' ? capacidadA - capacidadB : capacidadB - capacidadA;
+    }
+
+    return 0; // Si todo es igual, no se cambia el orden
+};
 
     const toggleSortDirection = () => {
         setSortDirection(prevDirection => (prevDirection === 'asc' ? 'desc' : 'asc'));
@@ -165,7 +175,7 @@ export const ListIphonesComponent = () => {
                             ref={searchInputRef}
                             type="text"
                             className="form-control"
-                            placeholder="Buscar por modelo, IMEI, etc."
+                            placeholder="Buscar modelo:"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -241,8 +251,8 @@ export const ListIphonesComponent = () => {
                         {visibleColumns.color && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">COLOR</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('color')}>x</button></div></th>}
                         {visibleColumns.bateria && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">%BATERIA</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('bateria')}>x</button></div></th>}
                         {visibleColumns.condicion && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">CONDICION</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('condicion')}>x</button></div></th>}
-                        {visibleColumns.imei && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">IMEI</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('imei')}>x</button></div></th>}
                         {visibleColumns.estado && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">ESTADO</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('estado')}>x</button></div></th>}
+                        {visibleColumns.imei && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">IMEI</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('imei')}>x</button></div></th>}
                         {visibleColumns.detalles && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">DETALLES</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('detalles')}>x</button></div></th>}
                         {visibleColumns.fecha && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">FECHA</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('fecha')}>x</button></div></th>}
                         {visibleColumns.acciones && <th><div className="d-flex justify-content-between align-items-center"><div className="flex-grow-1 text-center">ACCIONES</div> <button className="btn btn-sm p-0 m-0" onClick={() => toggleColumnVisibility('acciones')}>x</button></div></th>}
@@ -259,10 +269,10 @@ export const ListIphonesComponent = () => {
                                     {visibleColumns.color && <td>{iphone.color}</td>}
                                     {visibleColumns.bateria && <td>{iphone.bateria}</td>}
                                     {visibleColumns.condicion && <td>{iphone.condicion}</td>}
-                                    {visibleColumns.imei && <td>{iphone.imei}</td>}
                                     {visibleColumns.estado && <td>{iphone.estado}</td>}
+                                    {visibleColumns.imei && <td>{iphone.imei}</td>}
                                     {visibleColumns.detalles && <td>{iphone.detalles}</td>}
-                                    {visibleColumns.fecha && <td>{iphone.hora} / {iphone.fecha}</td>}
+                                    {visibleColumns.fecha && <td>{iphone.fecha}</td>}
                                     {visibleColumns.acciones &&
                                         <td>
                                             <div className="d-flex justify-content-center gap-1">
