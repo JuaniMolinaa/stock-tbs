@@ -162,14 +162,17 @@ export const ListIphonesComponent = () => {
         return sortDirection === 'asc' ? '↓' : '↑';
     };
 
+
     return (
         <div className='container-fluid text-center'>
             <h2 className='text-center'>Lista de Iphones</h2>
-            <div className="d-flex justify-content-between align-items-center mb-2">
+            <div className="d-flex mb-2 gap-2">
                 <Link to='/add-iphone' className='btn btn-primary'>Agregar Iphone</Link>
 
+                <Link to='/view-for-whatsapp' className='btn btn-success'>Lista Whatsapp</Link>
+
                 {/* Contenedor principal de filtros y búsqueda */}
-                <div className="d-flex">
+                <div className="d-flex ms-auto">
                     <div className="input-group me-2" style={{ width: '320px' }}>
                         <input
                             ref={searchInputRef}

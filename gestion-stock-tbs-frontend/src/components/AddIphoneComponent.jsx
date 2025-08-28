@@ -125,6 +125,7 @@ export const AddIphoneComponent = () => {
                                             <option value="AZUL">🔵 AZUL</option>
                                             <option value="VERDE">🟢 VERDE</option>
                                             <option value="ROSADO">💗 ROSADO</option>
+                                            <option value="ROJO">🔴 ROJO</option>
                                             <option value="DORADO">🌞 DORADO</option>
                                             <option value="NATURAL">🥈 NATURAL</option>
                                             <option value="DESERT">🟠 DESERT</option>

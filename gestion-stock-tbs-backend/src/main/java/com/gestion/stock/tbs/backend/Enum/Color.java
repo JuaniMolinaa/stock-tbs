@@ -8,6 +8,7 @@ public enum Color {
 	AZUL,
 	VERDE,
 	ROSADO,
+	ROJO,
 	DORADO,
 	NATURAL,
 	DESERT;

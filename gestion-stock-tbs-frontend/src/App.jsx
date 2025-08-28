@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import './App.css'
 import ListIphonesComponent from './components/ListIphonesComponent'
-import { HeaderComponent } from './components/HeaderComponent';
-import { FooterComponent } from './components/FooterComponent';
+import { HeaderComponent } from './components/HeaderComponent'
+import { FooterComponent } from './components/FooterComponent'
 import { BrowserRouter } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { Routes } from 'react-router-dom'
 import AddIphoneComponent from './components/AddIphoneComponent'
+import { ListWhatsapp } from './components/ListWhatsapp';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
             <Route path='/iphones' element={<ListIphonesComponent />}></Route>
             <Route path='/add-iphone' element={<AddIphoneComponent />}></Route>
             <Route path='/edit-iphone/:id' element={<AddIphoneComponent />}></Route>
+            <Route path='/view-for-whatsapp' element={<ListWhatsapp />}></Route>
+
           </Routes>
         </div>
       </BrowserRouter>
